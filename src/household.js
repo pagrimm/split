@@ -18,4 +18,13 @@ export class Household {
   removeRoommateByIndex (index) {
     this.roommates.splice(index, 1);
   }
+
+  findIndexByName(name) {
+    for (const person of this.roommates) {
+      if (person.name === name) {
+        return person.index;
+      }
+    }
+    return false;
+  }
 }

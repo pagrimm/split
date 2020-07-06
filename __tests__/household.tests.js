@@ -7,17 +7,17 @@ describe('Household testing', () => {
 
   beforeEach(() => {
     household = new Household();
+    household.addRoommate('Steve');
   })
 
   test('should create a household object', () => {
     expect(household).toBeDefined();
     expect(household.total).toEqual(0);
-    expect(household.roommates.length).toEqual(0);
+    expect(household.roommates.length).toBeTruthy();
     expect(household.expenses.length).toEqual(0);
   });
 
   test('should add roommates to the household', () => {
-    household.addRoommate('Steve');
     expect(household.roommates.length).toEqual(1);
     expect(household.roommates[0].name).toBe('Steve');
     expect(household.roommates[0].index).toEqual(0);
@@ -25,8 +25,12 @@ describe('Household testing', () => {
   });
 
   test('should remove roommates from the household', () => {
-    household.addRoommate('Steve');
     household.removeRoommateByIndex(0);
     expect(household.roommates.length).toEqual(0);
   });
-});
+
+  test('should find a roommate index, given their name', () => {
+    expect(household.findIndexByName('Steve')).toBe(0);
+    expect(household.findIndexByName('John')).toEqual(false);
+  });
+});;
