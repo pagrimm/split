@@ -9,9 +9,9 @@ First team week project for Epicodus. Site designed to allow splitting of househ
 ## Specifications
 
 Backend:
-* Program stores a session object
-* Ability to add users to a session object
-* Ability to add items to the session
+* Program stores a session object ("Household")
+* Ability to add users ("Roommates") to a session object
+* Ability to add items ("Expenses") to the session
 * Items can debit and credit users
 * Debits and credits can be set via a custom split
 * Program calculates a users individual debit or credit based on the items they're included on
@@ -22,9 +22,12 @@ Frontend:
 * When adding an item, create a dialog box that allows assigning of debts and credits
 * Form contains entry fields for each person's contribution for assigning of credits
 * Option for assigning debits via an automatic split or custom split
-* Automatic split to include checkboxes for whether to include a user in that automaticsplit
+* Automatic split to include checkboxes for whether to include a user in that automatic split
 * Custom split to allow for direct assigning of debits
 
+Household = {this.roomates = []; Expenses = []; Total = num;}
+Roomates = {roomates = [(name, index)]}
+Expenses = {this.total = num; credits = [], debits = []}
 
 ## Setup/Installation Requirements
 
