@@ -21,7 +21,7 @@ describe('Household testing', () => {
     expect(household.roommates.length).toEqual(1);
     expect(household.roommates[0].name).toBe('Steve');
     expect(household.roommates[0].index).toEqual(0);
-    expect(household.nextIndex).toEqual(1);
+    expect(household.nextRoommateIndex).toEqual(1);
   });
 
   test('should remove roommates from the household', () => {
@@ -45,4 +45,10 @@ describe('Household testing', () => {
     expect(household.expenses[0].total).toBe(20);
     expect(household.expenses[0].name).toBe('Pizza');
   });
-});;
+
+  test('should be able to remove an expense', () =>  {
+    household.addExpense(20, 'Pizza', [20, 0, 0], [-10, -5, -5]);
+    household.removeExpense(0);
+    expect(household.expenses.length).toBe(0);
+  });
+});
