@@ -58,4 +58,10 @@ describe('Household testing', () => {
     const stevesExpenses = household.findExpenses('Steve');
     expect(stevesExpenses).toEqual([['Pizza', 20, -10], ['Groceries', 50, -30]]);
   });
+
+  test('should find the running total of a specific roommates debits and credits', ()=>{
+    household.addExpense(20, 'Pizza', [20, 0, 0], [-10, -5, -5]);
+    household.addExpense(50, 'Groceries', [50, 0, 0], [-30, -5, -5]);
+    expect(household.runningTotal('Steve')).toEqual(30);
+  });
 });
