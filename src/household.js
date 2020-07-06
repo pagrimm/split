@@ -18,7 +18,19 @@ export class Household {
   }
 
   removeRoommateByIndex (index) {
-    this.roommates.splice(index, 1);
+    for (let i = 0; i < this.roommates.length; i++) {
+      if (this.roommates[i].index === index) {
+        this.roommates.splice(i, 1);
+      }
+    }
+  }
+
+  removeRoommateByName (name) {
+    for (let i = 0; i < this.roommates.length; i++) {
+      if (this.roommates[i].name = name) {
+        this.roommates.splice(i, 1);
+      }
+    }
   }
 
   findIndexByName(name) {

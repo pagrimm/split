@@ -29,6 +29,11 @@ describe('Household testing', () => {
     expect(household.roommates.length).toEqual(0);
   });
 
+  test('should remove roommates from the household by name', () => {
+    household.removeRoommateByName('Steve');
+    expect(household.roommates.length).toEqual(0);
+  });
+
   test('should find a roommate index, given their name', () => {
     expect(household.findIndexByName('Steve')).toBe(0);
     expect(household.findIndexByName('John')).toEqual(false);
