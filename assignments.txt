@@ -1,0 +1,19 @@
+Class methods for the Household object
+-Add/Remove Roomates
+-Add/Remove Expenses
+-Find Roommates by name or by index
+-Find all credits and debits a specific roommate is responsible for
+-Be able to calculate a running total by roommate
+-Find specific expenses
+-Update running total
+
+
+Class methods for the Expense object
+-Find total cost
+-Verify that sum of debits and credits equals cost
+-Identify amount paid and amount owed for a specific roommate for each item
+
+
+Other business logic:
+-Ability to gather input from the user
+-Ability to divide up and do math as appropriate
