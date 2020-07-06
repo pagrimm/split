@@ -14,4 +14,8 @@ export class Household {
     this.nextIndex ++;
     this.roommates.push(roommate);
   }
+
+  removeRoommateByIndex (index) {
+    this.roommates.splice(index, 1);
+  }
 }

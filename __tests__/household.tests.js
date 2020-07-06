@@ -24,4 +24,9 @@ describe('Household testing', () => {
     expect(household.nextIndex).toEqual(1);
   });
 
+  test('should remove roommates from the household', () => {
+    household.addRoommate('Steve');
+    household.removeRoommateByIndex(0);
+    expect(household.roommates.length).toEqual(0);
+  });
 });

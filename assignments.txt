@@ -17,3 +17,16 @@ Class methods for the Expense object
 Other business logic:
 -Ability to gather input from the user
 -Ability to divide up and do math as appropriate
+
+
+
+  findIndexbyName('peter')
+  findNamebyIndex
+  [(Mike, 0), undefined, undefined, undefined, undefined, (Peter, 5)]
+  
+  Expense = {$20, 'pizza', credit = (20, 0, 0, 0), debit = (-5, -5, -5, -5)}
+
+  Pizza (+20, -5, -5, -10)
+
+  Person to Person (+20, 0, 0, -20)
+  Expense= [debit= [5, 0, 0, 0, 0, 5]]
