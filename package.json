@@ -1,5 +1,5 @@
 {
-  "name": "project-name",
+  "name": "split",
   "version": "1.0.0",
   "description": "description-here",
   "main": "index.js",
@@ -11,7 +11,7 @@
     "debug": "node --inspect-brk node_modules/jest/bin/jest.js --runInBand"
   },
   "keywords": [],
-  "author": "your-name-here",
+  "author": "Peter Grimm, James Henager, Micheal Hansen, Taylor Phillips",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.6.4",
