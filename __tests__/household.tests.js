@@ -38,4 +38,11 @@ describe('Household testing', () => {
     expect(household.findNameByIndex(0)).toBe('Steve');
     expect(household.findNameByIndex(5)).toBe(false);
   });
+
+  test('should be able to add expenses', () =>{
+    household.addExpense(20, 'Pizza', [20, 0, 0], [-10, -5, -5]);
+    expect(household.expenses.length).toBe(1);
+    expect(household.expenses[0].total).toBe(20);
+    expect(household.expenses[0].name).toBe('Pizza');
+  });
 });;

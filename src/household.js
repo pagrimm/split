@@ -1,5 +1,6 @@
 //Household = {this.roomates = []; Expenses = []; Total = num;}
 import { Roommate } from './roommate';
+import { Expense } from './expense';
 
 export class Household {
   constructor() {
@@ -35,5 +36,10 @@ export class Household {
       }
     }
     return false;
+  }
+
+  addExpense(total, name, credits, debits) {
+    let expense = new Expense(total, name, credits, debits);
+    this.expenses.push(expense);
   }
 }
