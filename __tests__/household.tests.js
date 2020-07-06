@@ -33,4 +33,9 @@ describe('Household testing', () => {
     expect(household.findIndexByName('Steve')).toBe(0);
     expect(household.findIndexByName('John')).toEqual(false);
   });
+
+  test('should find a roommates name, given their index', ()=>{
+    expect(household.findNameByIndex(0)).toBe('Steve');
+    expect(household.findNameByIndex(5)).toBe(false);
+  });
 });;

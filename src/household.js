@@ -27,4 +27,13 @@ export class Household {
     }
     return false;
   }
+
+  findNameByIndex(index) {
+    for (const person of this.roommates) {
+      if (person.index === index) {
+        return person.name;
+      }
+    }
+    return false;
+  }
 }
