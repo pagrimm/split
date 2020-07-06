@@ -34,12 +34,12 @@ describe('Household testing', () => {
     expect(household.findIndexByName('John')).toEqual(false);
   });
 
-  test('should find a roommates name, given their index', ()=>{
+  test('should find a roommates name, given their index', () => { 
     expect(household.findNameByIndex(0)).toBe('Steve');
     expect(household.findNameByIndex(5)).toBe(false);
   });
 
-  test('should be able to add expenses', () =>{
+  test('should be able to add expenses', () => {
     household.addExpense(20, 'Pizza', [20, 0, 0], [-10, -5, -5]);
     expect(household.expenses.length).toBe(1);
     expect(household.expenses[0].total).toBe(20);
@@ -50,5 +50,12 @@ describe('Household testing', () => {
     household.addExpense(20, 'Pizza', [20, 0, 0], [-10, -5, -5]);
     household.removeExpense(0);
     expect(household.expenses.length).toBe(0);
+  });
+
+  test('should find all credits and debits a specific roommate is responsible for', () => {
+    household.addExpense(20, 'Pizza', [20, 0, 0], [-10, -5, -5]);
+    household.addExpense(50, 'Groceries', [50, 0, 0], [-30, -5, -5]);
+    const stevesExpenses = household.findExpenses('Steve');
+    expect(stevesExpenses).toEqual([['Pizza', 20, -10], ['Groceries', 50, -30]]);
   });
 });

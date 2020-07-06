@@ -57,4 +57,15 @@ export class Household {
       this.expenses.splice(expenseIndex, 1);
     }
   }
+
+  findExpenses(name) {
+    const roommateIndex = this.findIndexByName(name);
+    const expenseArray = [];
+    for (const expense of this.expenses) {
+      if (expense.credits[roommateIndex] || expense.debits[roommateIndex]) {
+        expenseArray.push([expense.name, expense.credits[roommateIndex], expense.debits[roommateIndex]]);
+      }
+    }
+    return expenseArray;
+  }
 }
