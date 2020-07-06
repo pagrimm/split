@@ -21,6 +21,7 @@ export class Household {
     for (let i = 0; i < this.roommates.length; i++) {
       if (this.roommates[i].index === index) {
         this.roommates.splice(i, 1);
+        break;
       }
     }
   }
@@ -29,6 +30,7 @@ export class Household {
     for (let i = 0; i < this.roommates.length; i++) {
       if (this.roommates[i].name = name) {
         this.roommates.splice(i, 1);
+        break;
       }
     }
   }
@@ -88,5 +90,12 @@ export class Household {
       runningTotal += entry[1] + entry[2];
     }
     return runningTotal;
+  }
+
+  findTotalExpense() {
+    this.total = 0;
+    for (const expense of this.expenses) {
+      this.total += expense.total;
+    }
   }
 }

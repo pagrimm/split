@@ -69,4 +69,11 @@ describe('Household testing', () => {
     household.addExpense(50, 'Groceries', [50, 0, 0], [-30, -5, -5]);
     expect(household.runningTotal('Steve')).toEqual(30);
   });
+
+  test('should find the total of all expenses', ()=>{
+    household.addExpense(20, 'Pizza', [20, 0, 0], [-10, -5, -5]);
+    household.addExpense(50, 'Groceries', [50, 0, 0], [-30, -5, -5]);
+    household.findTotalExpense();
+    expect(household.total).toEqual(70);
+  });
 });
