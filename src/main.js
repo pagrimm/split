@@ -110,7 +110,7 @@ $(document).ready(function() {
   $('#show-house-expenses').click(function() { //update with correct name
     let houseHTML = '';
     household.expenses.forEach(function(expense) {
-      houseHTML += buildExpenseHTML(expense);
+      houseHTML += buildExpenseHTML(expense, household);
     });
     $("#household-expenses").html(houseHTML); //update with correct name
     $("#household.expenses").show();
@@ -121,10 +121,9 @@ $(document).ready(function() {
     const roommateName = $(this).attr('id');
     const roommateExpenses = household.findExpenses(roommateName);
     roommateExpenses.forEach(function(expense) {
-      roommateHTML += `<li>${expense.name}, ${expense.total}: `;
-      for (let i = 0; i < expense.credits.length; i++)  {
-        if ()
-      }
+      roommateHTML += buildExpenseHTML(expense, household);
     });
+    $("#roommate-expenses").html(roommateHTML);
+    $("#roommate-expenses").show();
   });
 });
