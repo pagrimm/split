@@ -1,8 +1,8 @@
-//import $ from "jquery";
+import $ from "jquery";
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
-/* import { Household } from './household';
+import { Household } from './household';
 
 function gatherCredits(household) {
   const numberItems = $(".roommate-select").length; //update with name used for selector boxes
@@ -76,20 +76,23 @@ $(document).ready(function() {
   
   //Roommates Interface
   //Add Roommates Button
-  $('#add-roommate').click(function() {
-    const roommateName = $("input[name=roommate-name]").val();
+  $('button#roommate-submit').click(function(event) {
+    event.preventDefault();
+    const roommateName = $("input#roommate-name").val();
     if (roommateName === '') {
       alert('Please enter a name');
       return;
     }
     household.addRoommate(roommateName);
-    $("input[name=roommate-name]").val('');
 
     //add new roommate to the expense interface
-    $('#expense-interface').append(roommateName);
+    $('select.roommate-contribution-name').append(`<option value='${roommateName}'>${roommateName}</option>`);
     
     //add new roommate to the display debits/credits interface
-    $('#display-expenses').append(roommateName);
+    $('div#roommate-expense-cards').append(`<div class='card'><div class='card-header'>${roommateName}: <span id='${roommateName}RunningTotal'></span></div><div class='card-body' id='${roommateName}ExpenseReadout'></div></div>`);
+
+    $("input#roommate-name").val('');
+    $('#roommate-modal').modal('hide');
   });
 
   //Expense Interface Listeners
