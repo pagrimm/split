@@ -28,7 +28,7 @@ export class Household {
 
   removeRoommateByName (name) {
     for (let i = 0; i < this.roommates.length; i++) {
-      if (this.roommates[i].name = name) {
+      if (this.roommates[i].name === name) {
         this.roommates.splice(i, 1);
         break;
       }
