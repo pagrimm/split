@@ -3,7 +3,57 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
 import { Household } from './household';
-import { Expense } from './expense';
+
+function gatherCredits(household) {
+  const numberItems = $(".roommate-select").length; //update with name used for selector boxes
+  const creditNames = [];
+  const creditAmounts = [];
+  for (let i = 0; i <= numberItems; i++) {
+    creditNames.push($(`.roommate-select${i}`).val()); //update with name used for roommate selection value
+  }
+  for (let i = 0; i <= numberItems; i++) {
+    creditAmounts.push(parseFloat($(`.credit-input${i}`).val())); // update with name used for credit input
+  }
+  const credits = [];
+  for (let i = 0; i < household.nextRoommateIndex; i++) {
+    credits.push(0);
+  }
+  for (let i = 0; i <= numberItems; i++) {
+    const roomieIndex = household.findIndexByName(creditNames[i]);
+    credits[roomieIndex] = creditAmounts[i];
+  }
+  return credits;
+}
+
+function gatherDebits(household) {
+  //initialize debits array
+  const debits = [];
+  for (let i = 0; i < household.nextRoommateIndex; i++) {
+    debits.push(0);
+  }
+  //detect whether an even or custom split is made
+  if ($('#even-split:selected')) { //update with correct name
+    //if even split is selected, determine which roommates are included on the split
+    const numberItems = $(".include-roomates:selected").length; //update with correct name
+    const debitNames = [];
+    for (let i = 0; i <= numberItems; i++) {
+      debitNames.push($(".include-roommates").val());
+    }
+    //do math to split the total among the included roommates
+    const totalDebit = parseFloat($('input[name=expense-cost]').val())/debitNames.length;
+    //assign split total to each roommate
+    debitNames.forEach(function(name) {
+      const roomieIndex = household.findIndexByName(name);
+      debits[roomieIndex] = totalDebit;
+    });
+  } else {
+    //if custom split is selected, directly assign the debit values
+    for (let i = 0; i < household.nextRoommateIndex; i++) {
+      debits[i] = parseFloat($(`.custom-split${i}`).val()); //update with correct name
+    }
+  }
+  return debits; //[-15, -15, -15]
+}
 
 $(document).ready(function() {
   let household = new Household();
@@ -35,8 +85,8 @@ $(document).ready(function() {
       alert('Enter valid expense');
       return;
     }
-    const credits = gatherCredits();      // To be written
-    const debits = gatherDebits();        //
-    let newExpense = new Expense(expenseCost, newExpenseName, );
+    const credits = gatherCredits(household);      // To be written
+    const debits = gatherDebits(household);        //
+    household.addExpense(expenseCost, newExpenseName, credits, debits); //Add error handling
   });
 });

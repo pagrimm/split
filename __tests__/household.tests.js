@@ -1,6 +1,4 @@
 import { Household } from './../src/household';
-import { Roommate } from './../src/roommate';
-import { Expense } from './../src/expense';
 
 describe('Household testing', () => {
   let household;
@@ -8,7 +6,7 @@ describe('Household testing', () => {
   beforeEach(() => {
     household = new Household();
     household.addRoommate('Steve');
-  })
+  });
 
   test('should create a household object', () => {
     expect(household).toBeDefined();
