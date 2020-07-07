@@ -19,7 +19,7 @@ module.exports = {
     new CleanWebpackPlugin(),
     new Dotenv(),
     new HtmlWebpackPlugin({
-      title: 'project-name',
+      title: 'split',
       template: './src/index.html',
       inject: 'body'
     })

@@ -55,8 +55,12 @@ export class Household {
 
   addExpense(total, name, credits, debits) {
     let expense = new Expense(total, name, credits, debits, this.nextExpenseId);
-    this.nextExpenseId++;
-    this.expenses.push(expense);
+    if (expense.verifyExpense()) {
+      this.nextExpenseId++;
+      this.expenses.push(expense);
+    } else {
+      return false;
+    }
   }
   
   removeExpense(id) {

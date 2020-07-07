@@ -1,6 +1,4 @@
 import { Household } from './../src/household';
-import { Roommate } from './../src/roommate';
-import { Expense } from './../src/expense';
 
 describe('Household testing', () => {
   let household;
@@ -8,7 +6,7 @@ describe('Household testing', () => {
   beforeEach(() => {
     household = new Household();
     household.addRoommate('Steve');
-  })
+  });
 
   test('should create a household object', () => {
     expect(household).toBeDefined();
@@ -59,20 +57,20 @@ describe('Household testing', () => {
 
   test('should find all credits and debits a specific roommate is responsible for', () => {
     household.addExpense(20, 'Pizza', [20, 0, 0], [-10, -5, -5]);
-    household.addExpense(50, 'Groceries', [50, 0, 0], [-30, -5, -5]);
+    household.addExpense(50, 'Groceries', [50, 0, 0], [-30, -10, -10]);
     const stevesExpenses = household.findExpenses('Steve');
     expect(stevesExpenses).toEqual([['Pizza', 20, -10], ['Groceries', 50, -30]]);
   });
 
   test('should find the running total of a specific roommates debits and credits', ()=>{
     household.addExpense(20, 'Pizza', [20, 0, 0], [-10, -5, -5]);
-    household.addExpense(50, 'Groceries', [50, 0, 0], [-30, -5, -5]);
+    household.addExpense(50, 'Groceries', [50, 0, 0], [-30, -10, -10]);
     expect(household.runningTotal('Steve')).toEqual(30);
   });
 
   test('should find the total of all expenses', ()=>{
     household.addExpense(20, 'Pizza', [20, 0, 0], [-10, -5, -5]);
-    household.addExpense(50, 'Groceries', [50, 0, 0], [-30, -5, -5]);
+    household.addExpense(50, 'Groceries', [50, 0, 0], [-30, -10, -10]);
     household.findTotalExpense();
     expect(household.total).toEqual(70);
   });
