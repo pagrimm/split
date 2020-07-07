@@ -1,8 +1,8 @@
-import $ from "jquery";
+//import $ from "jquery";
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
-import { Household } from './household';
+/* import { Household } from './household';
 
 function gatherCredits(household) {
   const numberItems = $(".roommate-select").length; //update with name used for selector boxes
