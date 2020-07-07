@@ -7,141 +7,181 @@
   <title>Document</title>
 </head>
 <body>
+  <nav class="navbar navbar-light bg-light">
+    <span class="navbar-brand mb-0 h1">Split</span>
+  </nav>
   <div class="container">
     <div class="row">
-      <div class="col-md-4">
-        <div class="card mb-3">
+      <!-- roommate column -->
+      <div class="col-md-5">
+        <div class="card mb-3 mt-3">
           <div class="card-header">Roommates</div>
           <div class="card-body center">
             <i class="fas fa-users big"></i>
             <div>
-              <button type="button" class="btn btn-success mt-3"><i class="fas fa-user-plus mr-3"></i>Add Roommate</button>
+              <button type="button" class="btn btn-success mt-3" data-toggle="modal" data-target="#roommate-modal"><i class="fas fa-user-plus mr-3"></i>Add Roommate</button>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-md-8">
-        <div class="card mb-3">
+      <!-- expense column -->
+      <div class="col-md-7">
+        <div class="card mb-3 mt-3">
           <div class="card-header">Expenses</div>
           <div class="card-body center">
             <i class="fas fa-money-check-alt big"></i>
             <div>
-              <button type="button" class="btn btn-success mt-3"><i class="fas fa-hand-holding-usd mr-3"></i>Add Expense</button>
+              <button type="button" class="btn btn-success mt-3" data-toggle="modal" data-target="#expense-modal"><i class="fas fa-hand-holding-usd mr-3"></i>Add Expense</button>
             </div>
           </div>
         </div>
       </div>
     </div>
-    
-    
-    <section class="card mb-3">
-      <div class="card-header">Roommate Input</div>
-      <div class="card-body">
-        <div class="input-group mb-1">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Roommate Name</span>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card mb-3 mt-3">
+          <div class="card-header">House Total:</div>
+          <div class="card-body center">
+
           </div>
-          <input type="text" class="form-control">
-        </div>
-        <div>
-          <button type="button" class="btn btn-success mt-3">Submit</button>
-          <button type="button" class="btn btn-warning mt-3">Clear</button>
         </div>
       </div>
-    </section>
-    <section class="card mb-3">
-      <div class="card-header">Expense Input</div>
-      <div class="card-body">
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Expense Name</span>
-          </div>
-          <input type="text" class="form-control">
-        </div>
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Expense Total</span>
-            <span class="input-group-text">$</span>
-          </div>
-          <input type="text" class="form-control">
-        </div>
-        <div class="card-text mb-1">Participation</div>
-        <div class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
-          <label class="btn btn-primary active">
-            <input type="checkbox" name="options" id="option1" autocomplete="off" checked=""> Roommate1
-          </label>
-          <label class="btn btn-primary">
-            <input type="checkbox" name="options" id="option2" autocomplete="off" checked=""> Roommate2
-          </label>
-          <label class="btn btn-primary">
-            <input type="checkbox" name="options" id="option3" autocomplete="off" checked=""> Roommate3
-          </label>
-          <label class="btn btn-primary">
-            <input type="checkbox" name="options" id="option4" autocomplete="off" checked=""> Roommate4
-          </label>
-        </div>
-        <div class="card-text mb-1">Contributions</div>
-        <div class="input-group mb-1">
-          <div class="input-group-prepend">
-            <select class="custom-select" id="inputGroupSelect04">
-              <option selected>Select Roommate</option>
-              <option value="1">Roommate1</option>
-              <option value="2">Roommate2</option>
-              <option value="3">Roommate3</option>
-            </select>
-          </div>
-          <input type="text" class="form-control">
-          <div class="input-group-append">
-            <button class="btn btn-primary" type="button">&plus;</button>
-          </div>
-        </div>
-        <div class="input-group mb-1">
-          <div class="input-group-prepend">
-            <select class="custom-select" id="inputGroupSelect04">
-              <option selected>Select Roommate</option>
-              <option value="1">Roommate1</option>
-              <option value="2">Roommate2</option>
-              <option value="3">Roommate3</option>
-            </select>
-          </div>
-          <input type="text" class="form-control">
-          <div class="input-group-append">
-            <button class="btn btn-danger" type="button">&times;</button>
-          </div>
-        </div>
-        <div class="card-text mb-1 mt-3">Split Type</div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" >
-          <label class="form-check-label" for="inlineRadio1">Even</label>
-        </div>
-        <div class="form-check form-check-inline mb-1">
-          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" checked>
-          <label class="form-check-label" for="inlineRadio2">Custom</label>
-        </div>
-        <div class="input-group mb-1">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Roomate1 Split</span>
-          </div>
-          <input type="text" class="form-control">
-        </div>
-        <div class="input-group mb-1">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Roomate2 Split</span>
-          </div>
-          <input type="text" class="form-control">
-        </div>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Roomate3 Split</span>
-          </div>
-          <input type="text" class="form-control">
-        </div>
-        <div>
-          <button type="button" class="btn btn-success mt-3">Submit</button>
-          <button type="button" class="btn btn-warning mt-3">Clear</button>
-        </div>
-      </div>
-    </section>
+    </div>
   </div>
 </body>
+
+
+<!-- expense modal -->
+<div class="modal fade" id="expense-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Expense Input</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="expense-form">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Expense Name</span>
+            </div>
+            <input type="text" class="form-control">
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Expense Total</span>
+              <span class="input-group-text">$</span>
+            </div>
+            <input type="text" class="form-control">
+          </div>
+          <div class="card-text mb-1">Participation</div>
+          <div class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
+            <label class="btn btn-primary active">
+              <input type="checkbox" name="options" id="option1" autocomplete="off" checked=""> Roommate1
+            </label>
+            <label class="btn btn-primary">
+              <input type="checkbox" name="options" id="option2" autocomplete="off" checked=""> Roommate2
+            </label>
+            <label class="btn btn-primary">
+              <input type="checkbox" name="options" id="option3" autocomplete="off" checked=""> Roommate3
+            </label>
+            <label class="btn btn-primary">
+              <input type="checkbox" name="options" id="option4" autocomplete="off" checked=""> Roommate4
+            </label>
+          </div>
+          <div class="card-text mb-1">Contributions</div>
+          <div class="input-group mb-1">
+            <div class="input-group-prepend">
+              <select class="custom-select" id="inputGroupSelect04">
+                <option selected>Select Roommate</option>
+                <option value="1">Roommate1</option>
+                <option value="2">Roommate2</option>
+                <option value="3">Roommate3</option>
+              </select>
+            </div>
+            <input type="text" class="form-control">
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button">&plus;</button>
+            </div>
+          </div>
+          <div class="input-group mb-1">
+            <div class="input-group-prepend">
+              <select class="custom-select" id="inputGroupSelect04">
+                <option selected>Select Roommate</option>
+                <option value="1">Roommate1</option>
+                <option value="2">Roommate2</option>
+                <option value="3">Roommate3</option>
+              </select>
+            </div>
+            <input type="text" class="form-control">
+            <div class="input-group-append">
+              <button class="btn btn-danger" type="button">&times;</button>
+            </div>
+          </div>
+          <div class="card-text mb-1 mt-3">Split Type</div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" >
+            <label class="form-check-label" for="inlineRadio1">Even</label>
+          </div>
+          <div class="form-check form-check-inline mb-1">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" checked>
+            <label class="form-check-label" for="inlineRadio2">Custom</label>
+          </div>
+          <div class="input-group mb-1">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Roomate1 Split</span>
+            </div>
+            <input type="text" class="form-control">
+          </div>
+          <div class="input-group mb-1">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Roomate2 Split</span>
+            </div>
+            <input type="text" class="form-control">
+          </div>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Roomate3 Split</span>
+            </div>
+            <input type="text" class="form-control">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" form="expense-form" id="expense-submit">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- roommate modal -->
+<div class="modal fade" id="roommate-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Roommate Input</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="roommate-form">
+          <div class="input-group mb-1">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Name</span>
+            </div>
+            <input type="text" class="form-control" id="roommate-name">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" form="roommate-form" id="roommate-submit">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
 </html>
