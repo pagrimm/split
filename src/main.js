@@ -8,22 +8,20 @@ import { createSplitInput } from './custom-split-template';
 import { createParticipationButton } from './participation-button-template';
 
 function gatherCredits(household) {
-  const numberItems = $(".roommate-select").length; //update with name used for selector boxes
-  const creditNames = [];
-  const creditAmounts = [];
-  for (let i = 0; i <= numberItems; i++) {
-    creditNames.push($(`.roommate-select${i}`).val()); //update with name used for roommate selection value
-  }
-  for (let i = 0; i <= numberItems; i++) {
-    creditAmounts.push(parseFloat($(`.credit-input${i}`).val())); // update with name used for credit input
-  }
+  const contributionNames = [];
+  $('select.roommate-contribution-name').each(function() {
+    contributionNames.push($(this).val());
+  });
+  const contributionCredits = [];
+  $('input.roommate-contribution-credit').each(function() {
+    contributionCredits.push(parseFloat($(this).val()));
+  });
   const credits = [];
   for (let i = 0; i < household.nextRoommateIndex; i++) {
     credits.push(0);
   }
-  for (let i = 0; i <= numberItems; i++) {
-    const roomieIndex = household.findIndexByName(creditNames[i]);
-    credits[roomieIndex] = creditAmounts[i];
+  for (let i = 0; i < contributionNames.length; i++) {
+    credits[household.findIndexByName(contributionNames[i])] = contributionCredits[i];
   }
   return credits;
 }
@@ -35,15 +33,14 @@ function gatherDebits(household) {
     debits.push(0);
   }
   //detect whether an even or custom split is made
-  if ($('#even-split:selected')) { //update with correct name
+  if ($('#even-split-radio:checked')) {
     //if even split is selected, determine which roommates are included on the split
-    const numberItems = $(".include-roomates:selected").length; //update with correct name
     const debitNames = [];
-    for (let i = 0; i <= numberItems; i++) {
-      debitNames.push($(".include-roommates").val());
-    }
+    $('input[name="participation"]:checked').each(function() {
+      debitNames.push($(this).val());
+    });
     //do math to split the total among the included roommates
-    const totalDebit = parseFloat($('input[name=expense-cost]').val())/debitNames.length;
+    const totalDebit = parseFloat($('input#expense-total').val())/debitNames.length;
     //assign split total to each roommate
     debitNames.forEach(function(name) {
       const roomieIndex = household.findIndexByName(name);
@@ -51,11 +48,17 @@ function gatherDebits(household) {
     });
   } else {
     //if custom split is selected, directly assign the debit values
-    for (let i = 0; i < household.nextRoommateIndex; i++) {
-      debits[i] = parseFloat($(`.custom-split${i}`).val()); //update with correct name
+    const customDebitNames = [];
+    const customDebitValues = [];
+    $('.custom-split-input').each(function() {
+      customDebitNames.push($(this).attr('id').split('-').pop());
+      customDebitValues.push(parseFloat($(this).val()));
+    });
+    for (let i = 0; i < customDebitValues.length; i++) {
+      debits[household.findIndexByName(customDebitNames[i])] = customDebitValues[i];
     }
   }
-  return debits; //[-15, -15, -15]
+  return debits;
 }
 
 function buildExpenseHTML(expense, household) {
@@ -112,15 +115,17 @@ $(document).ready(function() {
   $("form#expense-form").submit(function(event) {
     event.preventDefault();
 
-    const newExpenseName = $("input[name=expense-note]").val();
-    const expenseCost = parseFloat($("input[name=expense-cost]").val());
+    const newExpenseName = $("input#expense-name").val();
+    const expenseCost = parseFloat($("input#expense-total").val());
     if (newExpenseName === '' || isNaN(expenseCost))  {
       alert('Enter valid expense');
       return;
     }
-    const credits = gatherCredits(household);      // To be written
-    const debits = gatherDebits(household);        //
+    const credits = gatherCredits(household);
+    const debits = gatherDebits(household);
     household.addExpense(expenseCost, newExpenseName, credits, debits); //Add error handling
+    
+    $('#expense-modal').modal('hide');
   });
 
   $("form#expense-form").on('click', '.contribution-plus', function() {
