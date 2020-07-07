@@ -98,14 +98,11 @@
             <!-- target for expense total -->
           </div>
           <div class="card-text mb-1">Contributions</div>
-          <div class="input-group mb-1">
+          <div class="input-group mb-1 expense-input-copypasta"> <!-- Copy/Pasta this entire div -->
             <div class="input-group-prepend">
               <select class="custom-select roommate-contribution-name">
                 <!-- target for roommate name for credit pull -->
                 <option selected>Select Roommate</option>
-                <option value="1">Roommate1</option>
-                <option value="2">Roommate2</option>
-                <option value="3">Roommate3</option>
                 <!-- options are where roommate names will go during Add Roommate -->
               </select>
             </div>
@@ -114,20 +111,6 @@
             <div class="input-group-append">
               <button class="btn btn-primary contribution-plus" type="button">&plus;</button>
               <!-- target for adding an additional roommate contribution -->
-            </div>
-          </div>
-          <div class="input-group mb-1">
-            <div class="input-group-prepend">
-              <select class="custom-select" id="inputGroupSelect04">
-                <option selected>Select Roommate</option>
-                <option value="1">Roommate1</option>
-                <option value="2">Roommate2</option>
-                <option value="3">Roommate3</option>
-              </select>
-            </div>
-            <input type="text" class="form-control">
-            <div class="input-group-append">
-              <button class="btn btn-danger contribution-minus" type="button">&times;</button>
             </div>
           </div>
           <div class="card-text mb-1 mt-3">Split Type</div>

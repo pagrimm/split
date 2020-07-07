@@ -99,7 +99,9 @@ $(document).ready(function() {
 
   //Expense Interface Listeners
   //Listen for an added expense
-  $("#add-expense").click(function() {
+  $("form#expense-form").submit(function(event) {
+    event.preventDefault();
+
     const newExpenseName = $("input[name=expense-note]").val();
     const expenseCost = parseFloat($("input[name=expense-cost]").val());
     if (newExpenseName === '' || isNaN(expenseCost))  {
@@ -109,6 +111,18 @@ $(document).ready(function() {
     const credits = gatherCredits(household);      // To be written
     const debits = gatherDebits(household);        //
     household.addExpense(expenseCost, newExpenseName, credits, debits); //Add error handling
+  });
+
+  $("form#expense-form").on('click', '.contribution-plus', function() {
+    const newInputForm = $('div.expense-input-copypasta').first().clone();
+    $('div.expense-input-copypasta').last().after(newInputForm);
+    const changeButton = $('div.expense-input-copypasta').last().children('.input-group-append').children('button');
+    changeButton.removeClass('contribution-plus').removeClass('btn-primary').addClass('contribution-minus').addClass('btn-danger').html('&minus;')
+  });
+
+  $("form#expense-form").on('click', '.contribution-minus', function() {
+    const divToDelete = $(this).parent().parent();
+    divToDelete.remove();
   });
 
   //Display Debits and Credits Listeners
