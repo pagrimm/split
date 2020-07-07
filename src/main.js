@@ -55,6 +55,22 @@ function gatherDebits(household) {
   return debits; //[-15, -15, -15]
 }
 
+function buildExpenseHTML(expense, household) {
+  let codeHTML = `<li>${expense.name}, ${expense.total}: `;
+  for (let i = 0; i < expense.credits.length; i++) {
+    if (expense.credits[i]) {
+      codeHTML += `${household.findNameByIndex[i]} paid ${expense.credits[i]}`;
+    }
+  }
+  for (let i = 0; i < expense.debits.length; i++) {
+    if (expense.debits[i]) {
+      codeHTML += `${household.findNameByIndex[i]} owes ${expense.debits[i]}`;
+    }
+  }
+  codeHTML += `</li>`;
+  return codeHTML;
+}
+
 $(document).ready(function() {
   let household = new Household();
   
@@ -88,5 +104,27 @@ $(document).ready(function() {
     const credits = gatherCredits(household);      // To be written
     const debits = gatherDebits(household);        //
     household.addExpense(expenseCost, newExpenseName, credits, debits); //Add error handling
+  });
+
+  //Display Debits and Credits Listeners
+  $('#show-house-expenses').click(function() { //update with correct name
+    let houseHTML = '';
+    household.expenses.forEach(function(expense) {
+      houseHTML += buildExpenseHTML(expense);
+    });
+    $("#household-expenses").html(houseHTML); //update with correct name
+    $("#household.expenses").show();
+  });
+
+  $('#show-roomate-expenses').click(function() {
+    let roommateHTML = '';
+    const roommateName = $(this).attr('id');
+    const roommateExpenses = household.findExpenses(roommateName);
+    roommateExpenses.forEach(function(expense) {
+      roommateHTML += `<li>${expense.name}, ${expense.total}: `;
+      for (let i = 0; i < expense.credits.length; i++)  {
+        if ()
+      }
+    });
   });
 });
