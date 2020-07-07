@@ -4,6 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
 import { Household } from './household';
 import { createCard } from './card-template';
+import { createSplitInput } from './custom-split-template';
+import { createParticipationButton } from './participation-button-template';
 
 function gatherCredits(household) {
   const numberItems = $(".roommate-select").length; //update with name used for selector boxes
@@ -93,6 +95,14 @@ $(document).ready(function() {
     const cardHTML = createCard(roommateName);
     $('div#roommate-expense-cards').append(cardHTML);
 
+    //add new roommate to the custom split input interfrace
+    const customSplitInput = createSplitInput(roommateName);
+    $('div.custom-split-div').append(customSplitInput);
+
+    //add new participation button to the even split input interfrace
+    const participationButton = createParticipationButton(roommateName);
+    $("#participation-buttons").append(participationButton);
+
     $("input#roommate-name").val('');
     $('#roommate-modal').modal('hide');
   });
@@ -117,12 +127,21 @@ $(document).ready(function() {
     const newInputForm = $('div.expense-input-copypasta').first().clone();
     $('div.expense-input-copypasta').last().after(newInputForm);
     const changeButton = $('div.expense-input-copypasta').last().children('.input-group-append').children('button');
-    changeButton.removeClass('contribution-plus').removeClass('btn-primary').addClass('contribution-minus').addClass('btn-danger').html('&minus;')
+    changeButton.removeClass('contribution-plus').removeClass('btn-primary').addClass('contribution-minus').addClass('btn-danger').html('&minus;');
   });
 
   $("form#expense-form").on('click', '.contribution-minus', function() {
-    const divToDelete = $(this).parent().parent();
-    divToDelete.remove();
+    $(this).parent().parent().remove();
+  });
+
+  $('#even-split-radio').click(function() {
+    $('.participation-div').show();
+    $('.custom-split-div').hide();
+  });
+
+  $('#custom-split-radio').click(function() {
+    $('.participation-div').hide();
+    $('.custom-split-div').show();
   });
 
   //Display Debits and Credits Listeners

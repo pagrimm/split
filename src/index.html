@@ -115,45 +115,18 @@
           </div>
           <div class="card-text mb-1 mt-3">Split Type</div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" >
-            <label class="form-check-label" for="inlineRadio1">Even</label>
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="even-split-radio" value="even" checked>
+            <label class="form-check-label" for="even-split-radio">Even</label>
           </div>
           <div class="form-check form-check-inline mb-1">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" checked>
-            <label class="form-check-label" for="inlineRadio2">Custom</label>
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="custom-split-radio" value="option2">
+            <label class="form-check-label" for="custom-split-radio">Custom</label>
           </div>
-          <div class="card-text mb-1">Participation</div>
-          <div class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
-            <label class="btn btn-primary active">
-              <input type="checkbox" name="options" id="option1" autocomplete="off" checked=""> Roommate1
-            </label>
-            <label class="btn btn-primary">
-              <input type="checkbox" name="options" id="option2" autocomplete="off" checked=""> Roommate2
-            </label>
-            <label class="btn btn-primary">
-              <input type="checkbox" name="options" id="option3" autocomplete="off" checked=""> Roommate3
-            </label>
-            <label class="btn btn-primary">
-              <input type="checkbox" name="options" id="option4" autocomplete="off" checked=""> Roommate4
-            </label>
+          <div class="card-text mb-1 participation-div">Participation</div>
+          <div class="btn-group btn-group-toggle mb-3 participation-div" id='participation-buttons' data-toggle="buttons">
+            
           </div>
-          <div class="input-group mb-1">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Roomate1 Split</span>
-            </div>
-            <input type="text" class="form-control">
-          </div>
-          <div class="input-group mb-1">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Roomate2 Split</span>
-            </div>
-            <input type="text" class="form-control">
-          </div>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Roomate3 Split</span>
-            </div>
-            <input type="text" class="form-control">
+          <div class='custom-split-div'>
           </div>
         </form>
       </div>

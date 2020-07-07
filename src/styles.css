@@ -6,3 +6,7 @@ i.big {
 .center {
   text-align: center;
 }
+
+.custom-split-div {
+  display: none;
+}
