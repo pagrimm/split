@@ -38,18 +38,33 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6" id="roommate-expense-cards">
-        <!-- target for adding roommate cards -->
+      <div class="col-md-6">
+        <div class='accordion' id='roommate-expense-cards'>
+          <!-- target for adding roommate cards -->
+
+        </div>
       </div>
 
-      <div class="col-md-6">
-        <div class="card mb-3 mt-3">
-          <div class="card-header">House Total: <span class="house-running-expenses"></span></div>
-          <div class="card-body center" id='house-expenses'>
-          <!-- target for adding house expenses -->
+      <div class= "col-md-6">
+        <div class="accordion" id="house-accordion">
+          <div class="card">
+            <div class="card-header" id="accordion-heading">
+              <h2 class="mb-0">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#house-expenses" aria-expanded="true" aria-controls="house-expenses">
+                  House Total: <span id='house-running-total'></span>
+                </button>
+              </h2>
+            </div>
+        
+            <div id="house-expenses" class="collapse" aria-labelledby="accordion-heading" data-parent="#house-accordion">
+              <div class="card-body" id='house-expenses-output'>
+                <!-- target for adding house expenses -->
+              </div>
+            </div>
           </div>
         </div>
       </div>
+      
     </div>
   </div>
 </body>
@@ -190,7 +205,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" form="roommate-form" id="roommate-submit">Submit</button>
+        <button type="submit" class="btn btn-primary" form="roommate-form" id="roommate-submit">Submit</button>
         <!-- target buttons for add roommate -->
       </div>
     </div>

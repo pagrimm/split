@@ -3,6 +3,7 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
 import { Household } from './household';
+import { createCard } from './card-template';
 
 function gatherCredits(household) {
   const numberItems = $(".roommate-select").length; //update with name used for selector boxes
@@ -76,7 +77,7 @@ $(document).ready(function() {
   
   //Roommates Interface
   //Add Roommates Button
-  $('button#roommate-submit').click(function(event) {
+  $('form#roommate-form').submit(function(event) {
     event.preventDefault();
     const roommateName = $("input#roommate-name").val();
     if (roommateName === '') {
@@ -89,7 +90,8 @@ $(document).ready(function() {
     $('select.roommate-contribution-name').append(`<option value='${roommateName}'>${roommateName}</option>`);
     
     //add new roommate to the display debits/credits interface
-    $('div#roommate-expense-cards').append(`<div class='card'><div class='card-header'>${roommateName}: <span id='${roommateName}RunningTotal'></span></div><div class='card-body' id='${roommateName}ExpenseReadout'></div></div>`);
+    const cardHTML = createCard(roommateName);
+    $('div#roommate-expense-cards').append(cardHTML);
 
     $("input#roommate-name").val('');
     $('#roommate-modal').modal('hide');
