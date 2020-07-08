@@ -115,9 +115,10 @@ $(document).ready(function() {
     event.preventDefault();
     const roommateName = $("input#roommate-name").val();
     if (roommateName === '') {
-      alert('Please enter a name');
+      $("#roommateNameError").html("Please Enter a Name");
       return;
     }
+    $("#roommateNameError").html('');
     household.addRoommate(roommateName);
 
     //add new roommate to the expense interface
@@ -139,6 +140,10 @@ $(document).ready(function() {
     $('#roommate-modal').modal('hide');
   });
 
+  $('#close-roommate-form').click(function() {
+    $("#roommateNameError").html('');
+  });
+
   //Expense Interface Listeners
   //Listen for an added expense
   $("form#expense-form").submit(function(event) {
@@ -147,7 +152,7 @@ $(document).ready(function() {
     const newExpenseName = $("input#expense-name").val();
     const expenseCost = parseFloat($("input#expense-total").val());
     if (newExpenseName === '' || isNaN(expenseCost))  {
-      alert('Enter valid expense');
+      $('#expenseErrorOutput').html('Enter a name and dollar value');
       return;
     }
     const credits = gatherCredits(household);
@@ -156,10 +161,11 @@ $(document).ready(function() {
       household.addExpense(expenseCost, newExpenseName, credits, debits);
       displayExpenses(household);
     } catch(error) {
-      alert(error.message);
+      $('#expenseErrorOutput').html(error.message);
       return;
     }
 
+    $('#expenseErrorOutput').html('');
     $('#expense-modal').modal('hide');
     $('#expense-form').children('.deleteThis').remove();
     $('#even-split-radio').prop('checked', true);

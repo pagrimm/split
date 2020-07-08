@@ -97,6 +97,8 @@
             <input type="number" step="0.01" class="form-control" id="expense-total">
             <!-- target for expense total -->
           </div>
+          <div id='expenseErrorOutput'>
+          </div>
           <div class="card-text mb-1">Contributions</div>
           <div class="input-group mb-1 expense-input-copypasta"> <!-- Copy/Pasta this entire div -->
             <div class="input-group-prepend">
@@ -156,11 +158,13 @@
             </div>
             <input type="text" class="form-control" id="roommate-name"> 
             <!-- input name target for add roommate -->
+            <div id="roommateNameError">
+            </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" id="close-roommate-form" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary" form="roommate-form" id="roommate-submit">Submit</button>
         <!-- target buttons for add roommate -->
       </div>

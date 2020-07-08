@@ -10,3 +10,8 @@ i.big {
 .custom-split-div {
   display: none;
 }
+
+#roommateNameError, #expenseErrorOutput {
+  font-size: 10px;
+  color: red;
+}
