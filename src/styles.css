@@ -15,3 +15,59 @@ i.big {
   font-size: 10px;
   color: red;
 }
+
+.roommate-name-icon {
+  float: left;
+  font-size: 1.5em;
+  color: gray;
+}
+
+.roommate-name-header {
+  float: left;
+  font-size: 1.5em;
+}
+
+.roommate-name-header-button {
+  float: right;
+}
+
+.expense-icon {
+  float: left;
+  color: gray;
+}
+
+.expense-header {
+  float: left;
+}
+
+.expense-total {
+  float: right;
+}
+
+.roommate-total-icon {
+  float: left;
+  color: gray;
+}
+
+.roommate-total {
+  float: left;
+}
+
+.btn {
+  box-shadow: 1px 2px 3px rgb(85, 85, 85);
+}
+
+.household-name-icon {
+  float: left;
+  font-size: 1.5em;
+  color: gray;
+}
+
+.household-name-header {
+  float: left;
+  font-size: 1.5em;
+}
+
+.household-name-header-button {
+  float: right;
+}

@@ -1,16 +1,17 @@
 export function createCard(roommateName) {
-  return `<div class='card'>
+  return `
+  <div class='card'>
     <div class='card-header'>
-      <h2 class="mb-0">
-        <button class='btn btn-link' type="button" data-toggle="collapse" data-target="#${roommateName}Expenses">
-          ${roommateName} Total: <span id='${roommateName}-running-total'></span>
-        </button>
-      </h2>
+      <div class="roommate-name-icon mr-3"><i class="fas fa-user"></i></div>
+      <div class="roommate-name-header">${roommateName}</div>
+      <div class="roommate-name-header-button"><button class='btn btn-primary' type="button" data-toggle="collapse" data-target="#${roommateName}Expenses"><i class="fas fa-angle-down"></i></button></div>
     </div>
-
-    <div id='${roommateName}Expenses' class='collapse' data-parent="#roommate-expense-cards">
-      <div class="card-body" id='${roommateName}-Expenses-Output'>
         
+    <div id='${roommateName}Expenses' class='collapse' data-parent="#roommate-expense-cards">
+      <div class="card-body">
+        <div id='${roommateName}-Expenses-Output'></div>
+        <div class="roommate-total-icon ml-2 mr-3 mb-3"><i class="fas fa-file-invoice-dollar"></i></div>
+        <div class="roommate-total mb-3">${roommateName} <span id='${roommateName}-running-total'></span> in total</div>
       </div>
     </div>
   </div>`;
@@ -29,4 +30,17 @@ export function createParticipationButton (roommateName) {
   return `<label class="btn btn-primary active">
     <input type="checkbox" name="participation" autocomplete="off" value="${roommateName}" checked> ${roommateName}
   </label>`;
+}
+
+export function createExpenseCard (expense) {
+  return `
+  <div class="card mb-3">
+    <div class="card-header">
+      <div class="expense-icon mr-3"><i class="fas fa-money-check-alt"></i></i></div>
+      <div class="expense-header">${expense.name}</div>
+      <div class="expense-total">$${expense.total.toFixed(2)}</div>
+    </div>
+    <div class="card-body expense-output">
+    </div>
+  </div>`;
 }

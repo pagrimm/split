@@ -15,6 +15,7 @@
       <!-- roommate column -->
       <div class="col-md-6">
         <div class="card mb-3 mt-3">
+
           <div class="card-header">Roommates</div>
           <div class="card-body center">
             <i class="fas fa-users big"></i>
@@ -41,7 +42,6 @@
       <div class="col-md-6">
         <div class='accordion' id='roommate-expense-cards'>
           <!-- target for adding roommate cards -->
-
         </div>
       </div>
 
@@ -49,16 +49,19 @@
         <div class="accordion" id="house-accordion">
           <div class="card">
             <div class="card-header" id="accordion-heading">
-              <h2 class="mb-0">
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#house-expenses" aria-expanded="true" aria-controls="house-expenses">
-                  House Total: <span id='house-running-total'></span>
-                </button>
-              </h2>
+              <div class="household-name-icon mr-3"><i class="fas fa-house-user"></i></div>
+              <div class="household-name-header">Household</div>
+              <div class="household-name-header-button">
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#house-expenses" aria-expanded="true" aria-controls="house-expenses"><i class="fas fa-angle-down"></i></button>
+              </div>
             </div>
         
             <div id="house-expenses" class="collapse" aria-labelledby="accordion-heading" data-parent="#house-accordion">
               <div class="card-body" id='house-expenses-output'>
                 <!-- target for adding house expenses -->
+                
+                <div class="roommate-total-icon ml-2 mr-3 mb-3"><i class="fas fa-file-invoice-dollar"></i></div>
+                <div class="roommate-total mb-3"></div>
               </div>
             </div>
           </div>

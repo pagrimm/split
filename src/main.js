@@ -3,7 +3,7 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
 import { Household } from './household';
-import { createCard, createSplitInput, createParticipationButton } from './HTML-templates';
+import { createCard, createSplitInput, createParticipationButton, createExpenseCard } from './HTML-templates';
 
 function gatherCredits(household) {
   const contributionNames = [];
@@ -77,19 +77,20 @@ function buildExpenseHTML(expense, household) {
 }
 
 function displayExpensesByRoommate(household, roommate) {
-  let finalHTML = `<ul>`;
   for (const expense of household.expenses) {
+    let newExpenseCard = createExpenseCard(expense);
+    let expenseHTML = '';
     if (expense.debits[roommate.index] || expense.credits[roommate.index]) {
       const roomieBalance = expense.credits[roommate.index] - expense.debits[roommate.index];
       if (roomieBalance > 0) {
-        finalHTML += `${roommate.name} is owed ${roomieBalance} for ${expense.name}`;
+        expenseHTML += `<div>${roommate.name} is owed $${roomieBalance.toFixed(2)} for ${expense.name}</div>`;
       } else if (roomieBalance < 0) {
-        finalHTML += `${roommate.name} owes ${roomieBalance*-1} for ${expense.name}`;
+        expenseHTML += `<div>${roommate.name} owes $${(roomieBalance*-1).toFixed(2)} for ${expense.name}</div>`;
       }
     }
+    $(`#${roommate.name}-Expenses-Output`).append(newExpenseCard);
+    $(`#${roommate.name}-Expenses-Output`).children(".card").last().children(".expense-output").html(expenseHTML);
   }
-  finalHTML += `</ul>`;
-  $(`#${roommate.name}-Expenses-Output`).html(finalHTML);
 }
 
 function displayExpenses(household) {
