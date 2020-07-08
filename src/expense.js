@@ -16,7 +16,7 @@ export class Expense {
     const debitTotal = this.debits.reduce(function(acc, k) {
       return acc+k;
     });
-    if (creditTotal + debitTotal === 0 && creditTotal === this.total) {
+    if (creditTotal - debitTotal === 0 && creditTotal === this.total) {
       return true;
     } else {
       return false;

@@ -3,9 +3,7 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
 import { Household } from './household';
-import { createCard } from './card-template';
-import { createSplitInput } from './custom-split-template';
-import { createParticipationButton } from './participation-button-template';
+import { createCard, createSplitInput, createParticipationButton } from './HTML-templates';
 
 function gatherCredits(household) {
   const contributionNames = [];
@@ -62,24 +60,36 @@ function gatherDebits(household) {
 }
 
 function buildExpenseHTML(expense, household) {
-  let codeHTML = `<li>${expense.name}, ${expense.total}: `;
-  for (let i = 0; i < expense.credits.length; i++) {
-    if (expense.credits[i]) {
-      codeHTML += `${household.findNameByIndex[i]} paid ${expense.credits[i]}`;
+  let codeHTML = `<ul><li>${expense.name}, ${expense.total}</li>`;
+  for (const roommate of household.roommates) {
+    const roommateIndex = household.findIndexByName(roommate.name);
+    if (expense.credits[roommateIndex] || expense.debits[roommateIndex]) {
+      const roommateBalance = expense.credits[roommateIndex] - expense.debits[roommateIndex];
+      if (roommateBalance > 0) {
+        codeHTML += `<li>${roommate.name} is owed ${roommateBalance}</li>`;
+      } else if (roommateBalance < 0) {
+        codeHTML += `<li>${roommate.name} owes ${-1*roommateBalance}</li>`;
+      }
     }
   }
-  for (let i = 0; i < expense.debits.length; i++) {
-    if (expense.debits[i]) {
-      codeHTML += `${household.findNameByIndex[i]} owes ${expense.debits[i]}`;
-    }
-  }
-  codeHTML += `</li>`;
+  codeHTML += `</ul>`;
   return codeHTML;
+}
+
+function displayExpenses(household) {
+  let finalHTML = `<ul>`;
+  for (const expense of household.expenses) {
+    let expenseHTML = buildExpenseHTML(expense, household);
+    finalHTML += expenseHTML;
+  }
+  finalHTML += `</ul>`;
+  $('div#house-expenses-output').html(finalHTML);
 }
 
 $(document).ready(function() {
   let household = new Household();
-  
+  let resetForm = $('#expense-form').clone();
+
   //Roommates Interface
   //Add Roommates Button
   $('form#roommate-form').submit(function(event) {
@@ -107,6 +117,7 @@ $(document).ready(function() {
     $("#participation-buttons").append(participationButton);
 
     $("input#roommate-name").val('');
+    resetForm = $('#expense-form').clone();
     $('#roommate-modal').modal('hide');
   });
 
@@ -123,9 +134,16 @@ $(document).ready(function() {
     }
     const credits = gatherCredits(household);
     const debits = gatherDebits(household);
-    household.addExpense(expenseCost, newExpenseName, credits, debits); //Add error handling
-    
+    try {
+      household.addExpense(expenseCost, newExpenseName, credits, debits);
+      displayExpenses(household);
+    } catch(error) {
+      alert(error.message);
+      return;
+    }
+
     $('#expense-modal').modal('hide');
+    $("#expense-form").html(resetForm);
   });
 
   $("form#expense-form").on('click', '.contribution-plus', function() {
@@ -147,26 +165,5 @@ $(document).ready(function() {
   $('#custom-split-radio').click(function() {
     $('.participation-div').hide();
     $('.custom-split-div').show();
-  });
-
-  //Display Debits and Credits Listeners
-  $('#show-house-expenses').click(function() { //update with correct name
-    let houseHTML = '';
-    household.expenses.forEach(function(expense) {
-      houseHTML += buildExpenseHTML(expense, household);
-    });
-    $("#household-expenses").html(houseHTML); //update with correct name
-    $("#household.expenses").show();
-  });
-
-  $('#show-roomate-expenses').click(function() {
-    let roommateHTML = '';
-    const roommateName = $(this).attr('id');
-    const roommateExpenses = household.findExpenses(roommateName);
-    roommateExpenses.forEach(function(expense) {
-      roommateHTML += buildExpenseHTML(expense, household);
-    });
-    $("#roommate-expenses").html(roommateHTML);
-    $("#roommate-expenses").show();
   });
 });

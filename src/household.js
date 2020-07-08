@@ -59,7 +59,7 @@ export class Household {
       this.nextExpenseId++;
       this.expenses.push(expense);
     } else {
-      return false;
+      throw Error('Invalid Expense');
     }
   }
   
