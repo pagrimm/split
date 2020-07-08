@@ -60,32 +60,32 @@ function gatherDebits(household) {
 }
 
 function buildExpenseHTML(expense, household) {
-  let codeHTML = `<ul><li>${expense.name}, ${expense.total}</li>`;
+  let codeHTML = "";
   for (const roommate of household.roommates) {
     const roommateIndex = household.findIndexByName(roommate.name);
     if (expense.credits[roommateIndex] || expense.debits[roommateIndex]) {
       const roommateBalance = expense.credits[roommateIndex] - expense.debits[roommateIndex];
       if (roommateBalance > 0) {
-        codeHTML += `<li>${roommate.name} is owed ${roommateBalance}</li>`;
+        codeHTML += `<div>${roommate.name} is owed <span class="text-success">$${roommateBalance.toFixed(2)}</span></div>`;
       } else if (roommateBalance < 0) {
-        codeHTML += `<li>${roommate.name} owes ${-1*roommateBalance}</li>`;
+        codeHTML += `<div>${roommate.name} owes <span class="text-danger">$${(-1*roommateBalance).toFixed(2)}</span></div>`;
       }
     }
   }
-  codeHTML += `</ul>`;
   return codeHTML;
 }
 
 function displayExpensesByRoommate(household, roommate) {
+  $(`#${roommate.name}-Expenses-Output`).html("");
   for (const expense of household.expenses) {
     let newExpenseCard = createExpenseCard(expense);
     let expenseHTML = '';
     if (expense.debits[roommate.index] || expense.credits[roommate.index]) {
       const roomieBalance = expense.credits[roommate.index] - expense.debits[roommate.index];
       if (roomieBalance > 0) {
-        expenseHTML += `<div>${roommate.name} is owed $${roomieBalance.toFixed(2)} for ${expense.name}</div>`;
+        expenseHTML += `<div>${roommate.name} is owed <span class="text-success">$${roomieBalance.toFixed(2)}</span> for ${expense.name}</div>`;
       } else if (roomieBalance < 0) {
-        expenseHTML += `<div>${roommate.name} owes $${(roomieBalance*-1).toFixed(2)} for ${expense.name}</div>`;
+        expenseHTML += `<div>${roommate.name} owes <span class="text-danger">$${(roomieBalance*-1).toFixed(2)}</span> for ${expense.name}</div>`;
       }
     }
     $(`#${roommate.name}-Expenses-Output`).append(newExpenseCard);
@@ -94,13 +94,13 @@ function displayExpensesByRoommate(household, roommate) {
 }
 
 function displayExpenses(household) {
-  let finalHTML = `<ul>`;
+  $('div#house-expenses-output').html("");
   for (const expense of household.expenses) {
+    let expenseCard = createExpenseCard(expense);
     let expenseHTML = buildExpenseHTML(expense, household);
-    finalHTML += expenseHTML;
+    $('div#house-expenses-output').append(expenseCard);
+    $('div#house-expenses-output').children(".card").last().children(".expense-output").html(expenseHTML);
   }
-  finalHTML += `</ul>`;
-  $('div#house-expenses-output').html(finalHTML);
 
   for (const roommate of household.roommates) {
     displayExpensesByRoommate(household, roommate);
