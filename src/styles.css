@@ -53,6 +53,19 @@ i.big {
   float: left;
 }
 
+#house-accordion {
+  display: none;
+}
+
+.household-total-icon {
+  float: left;
+  color: gray;
+}
+
+.household-total {
+  float: left;
+}
+
 .btn {
   box-shadow: 1px 2px 3px rgb(85, 85, 85);
 }

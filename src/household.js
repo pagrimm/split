@@ -91,7 +91,7 @@ export class Household {
     const expenseArray = this.findExpenses(name);
     let runningTotal = 0;
     for (const entry of expenseArray) {
-      runningTotal += entry[1] + entry[2];
+      runningTotal += entry[1] - entry[2];
     }
     return runningTotal;
   }

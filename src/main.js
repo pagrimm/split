@@ -90,6 +90,12 @@ function displayExpensesByRoommate(household, roommate) {
     }
     $(`#${roommate.name}-Expenses-Output`).append(newExpenseCard);
     $(`#${roommate.name}-Expenses-Output`).children(".card").last().children(".expense-output").html(expenseHTML);
+    let roommateTotal = household.runningTotal(roommate.name);
+    if (roommateTotal >= 0) {
+      $(`#${roommate.name}-running-total`).html(`${roommate.name} is owed <span class="text-success">$${roommateTotal.toFixed(2)}</span> in total`);
+    } else {
+      $(`#${roommate.name}-running-total`).html(`${roommate.name} owes <span class="text-danger">$${(roommateTotal * -1).toFixed(2)}</span> in total`);
+    }
   }
 }
 
@@ -105,6 +111,8 @@ function displayExpenses(household) {
   for (const roommate of household.roommates) {
     displayExpensesByRoommate(household, roommate);
   }
+  household.findTotalExpense();
+  $(".household-total").html(`Household total is currently $${household.total.toFixed(2)}`);
 }
 
 $(document).ready(function() {
@@ -139,6 +147,7 @@ $(document).ready(function() {
 
     $("input#roommate-name").val('');
     $('#roommate-modal').modal('hide');
+    $('#add-expense').attr("disabled", false);
   });
 
   $('#close-roommate-form').click(function() {
@@ -178,6 +187,7 @@ $(document).ready(function() {
     $('.custom-split-input').val('');
     $('.participation-div').show();
     $('.custom-split-div').hide();
+    $("#house-accordion").show();
   });
 
   $("form#expense-form").on('click', '.contribution-plus', function() {

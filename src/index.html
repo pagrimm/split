@@ -32,7 +32,7 @@
           <div class="card-body center">
             <i class="fas fa-money-check-alt big"></i>
             <div>
-              <button type="button" class="btn btn-success mt-3" data-toggle="modal" data-target="#expense-modal"><i class="fas fa-hand-holding-usd mr-3"></i>Add Expense</button>
+              <button id="add-expense" type="button" class="btn btn-success mt-3" data-toggle="modal" data-target="#expense-modal" disabled><i class="fas fa-hand-holding-usd mr-3"></i>Add Expense</button>
             </div>
           </div>
         </div>
@@ -47,7 +47,7 @@
 
       <div class= "col-md-6">
         <div class="accordion" id="house-accordion">
-          <div class="card">
+          <div class="card household-card">
             <div class="card-header" id="accordion-heading">
               <div class="household-name-icon mr-3"><i class="fas fa-house-user"></i></div>
               <div class="household-name-header">Household</div>
@@ -60,8 +60,8 @@
               <div class="card-body">
                 <div id='house-expenses-output'></div>
                 <!-- target for adding house expenses -->
-                <div class="roommate-total-icon ml-2 mr-3 mb-3"><i class="fas fa-file-invoice-dollar"></i></div>
-                <div class="roommate-total mb-3">$0.00</div>
+                <div class="household-total-icon ml-2 mr-3 mb-3"><i class="fas fa-file-invoice-dollar"></i></div>
+                <div class="household-total mb-3">Household total is currently $0.00</div>
               </div>
             </div>
           </div>

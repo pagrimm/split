@@ -11,7 +11,7 @@ export function createCard(roommateName) {
       <div class="card-body">
         <div id='${roommateName}-Expenses-Output'></div>
         <div class="roommate-total-icon ml-2 mr-3 mb-3"><i class="fas fa-file-invoice-dollar"></i></div>
-        <div class="roommate-total mb-3">${roommateName} <span id='${roommateName}-running-total'></span> in total</div>
+        <div class="roommate-total mb-3"><span id='${roommateName}-running-total'></span></div>
       </div>
     </div>
   </div>`;
@@ -28,7 +28,7 @@ export function createSplitInput(roommateName) {
 
 export function createParticipationButton (roommateName) {
   return `<label class="btn btn-primary active">
-    <input type="checkbox" name="participation" autocomplete="off" value="${roommateName}" checked> ${roommateName}
+    <input type="checkbox" name="participation" class='participation-button' autocomplete="off" value="${roommateName}" checked> ${roommateName}
   </label>`;
 }
 
