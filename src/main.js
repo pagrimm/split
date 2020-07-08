@@ -31,7 +31,7 @@ function gatherDebits(household) {
     debits.push(0);
   }
   //detect whether an even or custom split is made
-  if ($('#even-split-radio:checked')) {
+  if ($('#even-split-radio').is(':checked')) {
     //if even split is selected, determine which roommates are included on the split
     const debitNames = [];
     $('input[name="participation"]:checked').each(function() {
@@ -76,6 +76,22 @@ function buildExpenseHTML(expense, household) {
   return codeHTML;
 }
 
+function displayExpensesByRoommate(household, roommate) {
+  let finalHTML = `<ul>`;
+  for (const expense of household.expenses) {
+    if (expense.debits[roommate.index] || expense.credits[roommate.index]) {
+      const roomieBalance = expense.credits[roommate.index] - expense.debits[roommate.index];
+      if (roomieBalance > 0) {
+        finalHTML += `${roommate.name} is owed ${roomieBalance} for ${expense.name}`;
+      } else if (roomieBalance < 0) {
+        finalHTML += `${roommate.name} owes ${roomieBalance*-1} for ${expense.name}`;
+      }
+    }
+  }
+  finalHTML += `</ul>`;
+  $(`#${roommate.name}-Expenses-Output`).html(finalHTML);
+}
+
 function displayExpenses(household) {
   let finalHTML = `<ul>`;
   for (const expense of household.expenses) {
@@ -84,11 +100,14 @@ function displayExpenses(household) {
   }
   finalHTML += `</ul>`;
   $('div#house-expenses-output').html(finalHTML);
+
+  for (const roommate of household.roommates) {
+    displayExpensesByRoommate(household, roommate);
+  }
 }
 
 $(document).ready(function() {
   let household = new Household();
-  let resetForm = $('#expense-form').clone();
 
   //Roommates Interface
   //Add Roommates Button
@@ -108,16 +127,15 @@ $(document).ready(function() {
     const cardHTML = createCard(roommateName);
     $('div#roommate-expense-cards').append(cardHTML);
 
-    //add new roommate to the custom split input interfrace
+    //add new roommate to the custom split input interface
     const customSplitInput = createSplitInput(roommateName);
     $('div.custom-split-div').append(customSplitInput);
 
-    //add new participation button to the even split input interfrace
+    //add new participation button to the even split input interface
     const participationButton = createParticipationButton(roommateName);
     $("#participation-buttons").append(participationButton);
 
     $("input#roommate-name").val('');
-    resetForm = $('#expense-form').clone();
     $('#roommate-modal').modal('hide');
   });
 
@@ -143,12 +161,22 @@ $(document).ready(function() {
     }
 
     $('#expense-modal').modal('hide');
-    $("#expense-form").html(resetForm);
+    $('#expense-form').children('.deleteThis').remove();
+    $('#even-split-radio').prop('checked', true);
+    $('#custom-split-radio').prop('checked', false);
+    $('#expense-name').val('');
+    $('#expense-total').val('');
+    $('.roommate-contribution-credit').val('');
+    $('.roommate-contribution-name').prop('selectedIndex', 0);
+    $('.custom-split-input').val('');
+    $('.participation-div').show();
+    $('.custom-split-div').hide();
   });
 
   $("form#expense-form").on('click', '.contribution-plus', function() {
     const newInputForm = $('div.expense-input-copypasta').first().clone();
     $('div.expense-input-copypasta').last().after(newInputForm);
+    $('div.expense-input-copypasta').last().addClass('deleteThis');
     const changeButton = $('div.expense-input-copypasta').last().children('.input-group-append').children('button');
     changeButton.removeClass('contribution-plus').removeClass('btn-primary').addClass('contribution-minus').addClass('btn-danger').html('&minus;');
   });
