@@ -30,6 +30,11 @@ First team week project for Epicodus. Site designed to allow splitting of househ
 * _In Command Line, type, `npm install` and wait for the application to complete it's action_
 * _Within a command line terminal, user must type `npm run start` to initiate the localhost webpage_
 
+## Bugs
+
+- There is occasionally a rounding issue with values less than a penny.
+- If an expense is added, the output uses the incorrect logic for displaying the name of the expense.
+
 ## Technologies Used
 
 - HTML  
