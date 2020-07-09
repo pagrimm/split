@@ -215,6 +215,7 @@ $(document).ready(function() {
     $('.participation-div').show();
     $('.custom-split-div').hide();
     $("#house-accordion").show();
+    $('#add-payment').attr("disabled", false);
   });
 
   $("form#payment-form").submit(function(event) {
@@ -249,6 +250,7 @@ $(document).ready(function() {
     }
     $('#paymentErrorOutput').html('');
     $('#payment-form').trigger("reset");
+    $('#payment-modal').modal('hide');
   });
 
   $("form#expense-form").on('click', '.contribution-plus', function() {
