@@ -33,7 +33,7 @@ First team week project for Epicodus. Site designed to allow splitting of househ
 ## Bugs
 
 - There is occasionally a rounding issue with values less than a penny.
-- If an expense is added, the output uses the incorrect logic for displaying the name of the expense.
+- If an expense is added, the output incorrectly displays the name of the expense.
 
 ## Technologies Used
 
