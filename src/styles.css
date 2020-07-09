@@ -3,6 +3,12 @@ i.big {
   color: lightgray;
 }
 
+.navbar-brand {
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+}
+
 .center {
   text-align: center;
 }

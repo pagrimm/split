@@ -76,6 +76,16 @@ export class Household {
     }
   }
 
+  findExpensesWithName(name) {
+    const expenses = [];
+    for (const exp of this.expenses) {
+      if (exp.name === name) {
+        expenses.push(exp);
+      }
+    }
+    return expenses;
+  }
+
   findExpenses(name) {
     const roommateIndex = this.findIndexByName(name);
     const expenseArray = [];

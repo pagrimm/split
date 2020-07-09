@@ -243,8 +243,24 @@ $(document).ready(function() {
       return;
     }
     try {
-      household.addExpense(0, newExpenseName, credit, debit);
-      household.expenses[household.expenses.length - 1].type = 1;
+      const expensesWithName = household.findExpensesWithName(newExpenseName);
+      let foundExpense = false;
+      for (const exp of expensesWithName) {
+        if (exp.debits[household.findIndexByName(payerName)] >= payment && exp.credits[household.findIndexByName(recipientName)] <= payment) {
+          foundExpense = exp;
+          break;
+        }
+      }
+      if (foundExpense) {
+        foundExpense.credits[household.findIndexByName(recipientName)] -= payment;
+        foundExpense.debits[household.findIndexByName(payerName)] -= payment;
+        if (foundExpense.credits.reduce((acc,k) => {return acc+k}) === 0) {
+          household.removeExpense(foundExpense.id);
+        }
+      } else {
+        household.addExpense(0, newExpenseName, credit, debit);
+        household.expenses[household.expenses.length - 1].type = 1;
+      }
       displayExpenses(household);
     } catch(error) {
       $('#paymentErrorOutput').html(error.message);
