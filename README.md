@@ -24,11 +24,13 @@ First team week project for Epicodus. Site designed to allow splitting of househ
 
 ## Setup/Installation Requirements
 
-* _Clone file to desktop from repo on github `https://github.com/pagrimm/split.git` by pressing the green "Code" button_
-* _Using a command Line terminal, enter `git clone https://github.com/pagrimm/split.git`_
-* _Navigate to project folder using command line type: `cd Desktop` followed by `cd split`_
-* _In Command Line, type, `npm install` and wait for the application to complete it's action_
-* _Within a command line terminal, user must type `npm run start` to initiate the localhost webpage_
+* Clone file to desktop from repo on github https://github.com/pagrimm/split.git by pressing the green "Code" button
+* Using a command Line terminal, enter `git clone https://github.com/pagrimm/split.git`
+* Navigate to project folder using command line type: `cd Desktop` followed by `cd split`
+* In Command Line, type, `npm install` and wait for the application to complete it's action
+* Within a command line terminal, user must type `npm run start` to initiate the localhost webpage
+
+* See this application deployed on [gh-pages](https://pagrimm.github.io/split/index.html)
 
 ## Bugs
 
