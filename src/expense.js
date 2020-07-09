@@ -7,6 +7,7 @@ export class Expense {
     this.credits = credits;
     this.debits = debits;
     this.id = id;
+    this.type = 0;
   }
 
   verifyExpense() {
@@ -16,7 +17,7 @@ export class Expense {
     const debitTotal = this.debits.reduce(function(acc, k) {
       return acc+k;
     });
-    if (creditTotal - debitTotal === 0 && creditTotal === this.total) {
+    if (creditTotal - debitTotal === 0) {
       return true;
     } else {
       return false;

@@ -18,7 +18,8 @@ export function createCard(roommateName) {
 }
 
 export function createSplitInput(roommateName) {
-  return`<div class="input-group mb-1">
+  return `
+  <div class="input-group mb-1">
     <div class="input-group-prepend">
       <span class="input-group-text">${roommateName} Split</span>
     </div>
@@ -27,18 +28,32 @@ export function createSplitInput(roommateName) {
 }
 
 export function createParticipationButton (roommateName) {
-  return `<label class="btn btn-primary active">
+  return `
+  <label class="btn btn-primary active">
     <input type="checkbox" name="participation" class='participation-button' autocomplete="off" value="${roommateName}" checked> ${roommateName}
   </label>`;
 }
 
 export function createExpenseCard (expense) {
+  let expenseIcon = 'fas fa-money-check-alt';
+  let expenseTotal = expense.total.toFixed(2);
+  let expenseName = expense.name;
+  if (expense.type === 1) {
+    expenseIcon = 'fas fa-hand-holding-usd';
+    expenseName = `Payment for ${expense.name}`;
+    for (let i = 0; i < expense.credits.length; i++) {
+      if (expense.credits[i]) {
+        expenseTotal = expense.credits[i].toFixed(2);
+        break;
+      }
+    }
+  }
   return `
   <div class="card mb-3">
     <div class="card-header">
-      <div class="expense-icon mr-3"><i class="fas fa-money-check-alt"></i></i></div>
-      <div class="expense-header">${expense.name}</div>
-      <div class="expense-total">$${expense.total.toFixed(2)}</div>
+      <div class="expense-icon mr-3"><i class="${expenseIcon}"></i></i></div>
+      <div class="expense-header">${expenseName}</div>
+      <div class="expense-total">$${expenseTotal}</div>
     </div>
     <div class="card-body expense-output">
     </div>

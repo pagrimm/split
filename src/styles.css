@@ -11,7 +11,7 @@ i.big {
   display: none;
 }
 
-#roommateNameError, #expenseErrorOutput {
+#roommateNameError, #expenseErrorOutput, #paymentErrorOutput {
   font-size: 10px;
   color: red;
 }
@@ -70,10 +70,6 @@ i.big {
   float: left;
 }
 
-.btn {
-  box-shadow: 1px 2px 3px rgb(85, 85, 85);
-}
-
 .household-name-icon {
   float: left;
   font-size: 1.5em;
@@ -87,4 +83,8 @@ i.big {
 
 .household-name-header-button {
   float: right;
+}
+
+#add-payment .fas {
+  font-size: 1.2rem;
 }

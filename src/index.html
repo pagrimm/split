@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://kit.fontawesome.com/ab4e2358ae.js" crossorigin="anonymous"></script>
-  <title>Document</title>
+  <title>Split</title>
 </head>
 <body>
   <nav class="navbar navbar-light bg-light">
@@ -20,7 +20,7 @@
           <div class="card-body center">
             <i class="fas fa-users big"></i>
             <div>
-              <button type="button" class="btn btn-success mt-3" data-toggle="modal" data-target="#roommate-modal"><i class="fas fa-user-plus mr-3"></i>Add Roommate</button>
+              <button id="add-roommate" type="button" class="btn btn-success mt-3" data-toggle="modal" data-target="#roommate-modal"><i class="fas fa-user-plus mr-3"></i>Add Roommate</button>
             </div>
           </div>
         </div>
@@ -192,7 +192,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text">Payer</span>
             </div>
-            <select class="custom-select payment-name">
+            <select id="payment-from" class="custom-select payment-name">
               <option disabled selected>Select Roommate</option>
             </select>
           </div>
@@ -200,7 +200,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text">Recipient</span>
             </div>
-            <select class="custom-select payment-name">
+            <select id="payment-to" class="custom-select payment-name">
               <option disabled selected>Select Roommate</option>
             </select>
           </div>
@@ -209,13 +209,21 @@
               <span class="input-group-text">Amount</span>
               <span class="input-group-text">$</span>
             </div>
-            <input type="text" class="form-control" id="roommate-name"> 
+            <input type="number" step="0.01" class="form-control" id="payment-number"> 
+          </div>
+          <div class="input-group mb-1">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Payment for</span>
+            </div>
+            <input type="text" class="form-control" id="payment-name"> 
           </div>
         </form>
+        <div id='paymentErrorOutput'>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" id="close-roommate-form" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" form="roommate-form" id="roommate-submit">Submit</button>
+        <button type="submit" class="btn btn-primary" form="payment-form" id="payment-submit">Submit</button>
         <!-- target buttons for add roommate -->
       </div>
     </div>
