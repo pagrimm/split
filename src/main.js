@@ -64,32 +64,59 @@ function buildExpenseHTML(expense, household) {
   for (const roommate of household.roommates) {
     const roommateIndex = household.findIndexByName(roommate.name);
     if (expense.credits[roommateIndex] || expense.debits[roommateIndex]) {
-      const roommateBalance = expense.credits[roommateIndex] - expense.debits[roommateIndex];
-      if (roommateBalance > 0) {
-        codeHTML += `<div>${roommate.name} is owed <span class="text-success">$${roommateBalance.toFixed(2)}</span></div>`;
-      } else if (roommateBalance < 0) {
-        codeHTML += `<div>${roommate.name} owes <span class="text-danger">$${(-1*roommateBalance).toFixed(2)}</span></div>`;
+      if (expense.type === 0) {
+        const roommateBalance = expense.credits[roommateIndex] - expense.debits[roommateIndex];
+        if (roommateBalance > 0) {
+          codeHTML += `<div>${roommate.name} is owed <span class="text-success">$${roommateBalance.toFixed(2)}</span></div>`;
+        } else if (roommateBalance < 0) {
+          codeHTML += `<div>${roommate.name} owes <span class="text-danger">$${(-1*roommateBalance).toFixed(2)}</span></div>`;
+        }
+      } else {
+        codeHTML = buildPaymentHTML(expense, household);
       }
     }
   }
   return codeHTML;
 }
 
+function buildPaymentHTML(expense, household) {
+  let payerName;
+  let recipientName;
+  let paymentTotal;
+  for (let i = 0; i < expense.credits.length; i++) {
+    if (expense.credits[i]) {
+      payerName = household.findNameByIndex(i);
+      paymentTotal = expense.credits[i];
+    }
+  }
+  for (let i = 0; i < expense.debits.length; i++) {
+    if (expense.debits[i]) {
+      recipientName = household.findNameByIndex(i);
+    }
+  }
+  let returnHTML = `<div>${payerName} made a payment to ${recipientName} for $${paymentTotal}</div>`;
+  return returnHTML;
+}
+
 function displayExpensesByRoommate(household, roommate) {
   $(`#${roommate.name}-Expenses-Output`).html("");
   for (const expense of household.expenses) {
-    let newExpenseCard = createExpenseCard(expense);
-    let expenseHTML = '';
     if (expense.debits[roommate.index] || expense.credits[roommate.index]) {
-      const roomieBalance = expense.credits[roommate.index] - expense.debits[roommate.index];
-      if (roomieBalance > 0) {
-        expenseHTML += `<div>${roommate.name} is owed <span class="text-success">$${roomieBalance.toFixed(2)}</span> for ${expense.name}</div>`;
-      } else if (roomieBalance < 0) {
-        expenseHTML += `<div>${roommate.name} owes <span class="text-danger">$${(roomieBalance*-1).toFixed(2)}</span> for ${expense.name}</div>`;
+      let newExpenseCard = createExpenseCard(expense);
+      let expenseHTML = '';
+      if (expense.type === 0) {
+        const roomieBalance = expense.credits[roommate.index] - expense.debits[roommate.index];
+        if (roomieBalance > 0) {
+          expenseHTML += `<div>${roommate.name} is owed <span class="text-success">$${roomieBalance.toFixed(2)}</span> for ${expense.name}</div>`;
+        } else if (roomieBalance < 0) {
+          expenseHTML += `<div>${roommate.name} owes <span class="text-danger">$${(roomieBalance*-1).toFixed(2)}</span> for ${expense.name}</div>`;
+        }
+      } else {
+        expenseHTML = buildPaymentHTML(expense, household);
       }
+      $(`#${roommate.name}-Expenses-Output`).append(newExpenseCard);
+      $(`#${roommate.name}-Expenses-Output`).children(".card").last().children(".expense-output").html(expenseHTML);
     }
-    $(`#${roommate.name}-Expenses-Output`).append(newExpenseCard);
-    $(`#${roommate.name}-Expenses-Output`).children(".card").last().children(".expense-output").html(expenseHTML);
     let roommateTotal = household.runningTotal(roommate.name);
     if (roommateTotal >= 0) {
       $(`#${roommate.name}-running-total`).html(`${roommate.name} is owed <span class="text-success">$${roommateTotal.toFixed(2)}</span> in total`);
@@ -132,7 +159,7 @@ $(document).ready(function() {
 
     //add new roommate to the expense interface
     $('select.roommate-contribution-name').append(`<option value='${roommateName}'>${roommateName}</option>`);
-    
+    $('select.payment-name').append(`<option value='${roommateName}'>${roommateName}</option>`);
     //add new roommate to the display debits/credits interface
     const cardHTML = createCard(roommateName);
     $('div#roommate-expense-cards').append(cardHTML);
@@ -147,7 +174,9 @@ $(document).ready(function() {
 
     $("input#roommate-name").val('');
     $('#roommate-modal').modal('hide');
-    $('#add-expense').attr("disabled", false);
+    if (household.roommates.length > 1) {
+      $('#add-expense').attr("disabled", false);
+    }
   });
 
   $('#close-roommate-form').click(function() {
@@ -188,6 +217,58 @@ $(document).ready(function() {
     $('.participation-div').show();
     $('.custom-split-div').hide();
     $("#house-accordion").show();
+    $('#add-payment').attr("disabled", false);
+  });
+
+  $("form#payment-form").submit(function(event) {
+    event.preventDefault();
+    const newExpenseName = $("input#payment-name").val();
+    const recipientName = $("select#payment-to").val();
+    const payerName = $("select#payment-from").val();
+    const payment = parseFloat($("#payment-number").val());
+    const credit = [];
+    credit[household.findIndexByName(payerName)] = payment;
+    const debit = [];
+    debit[household.findIndexByName(recipientName)] = payment;
+    for (let i = 0; i < household.roommates.length; i++) {
+      if (isNaN(credit[i])) {
+        credit[i] = 0;
+      }
+      if (isNaN(debit[i])) {
+        debit[i] = 0;
+      }
+    }
+    if (newExpenseName === '' || recipientName === '' || payerName === '' || isNaN(payment))  {
+      $('#paymentErrorOutput').html('Enter a payment name and dollar amount');
+      return;
+    }
+    try {
+      const expensesWithName = household.findExpensesWithName(newExpenseName);
+      let foundExpense = false;
+      for (const exp of expensesWithName) {
+        if (exp.debits[household.findIndexByName(payerName)] >= payment && exp.credits[household.findIndexByName(recipientName)] <= payment) {
+          foundExpense = exp;
+          break;
+        }
+      }
+      if (foundExpense) {
+        foundExpense.credits[household.findIndexByName(recipientName)] -= payment;
+        foundExpense.debits[household.findIndexByName(payerName)] -= payment;
+        if (foundExpense.credits.reduce((acc,k) => {return acc+k}) === 0) {
+          household.removeExpense(foundExpense.id);
+        }
+      } else {
+        household.addExpense(0, newExpenseName, credit, debit);
+        household.expenses[household.expenses.length - 1].type = 1;
+      }
+      displayExpenses(household);
+    } catch(error) {
+      $('#paymentErrorOutput').html(error.message);
+      return;
+    }
+    $('#paymentErrorOutput').html('');
+    $('#payment-form').trigger("reset");
+    $('#payment-modal').modal('hide');
   });
 
   $("form#expense-form").on('click', '.contribution-plus', function() {
@@ -211,4 +292,17 @@ $(document).ready(function() {
     $('.participation-div').hide();
     $('.custom-split-div').show();
   });
+
+  $("#roommate-expense-cards").on('click', '.expand-button', function() {
+    $(".expand-button").not(this).children(".up-button").hide();
+    $(".expand-button").not(this).children(".down-button").show();
+    $(this).children(".down-button").toggle();
+    $(this).children(".up-button").toggle();
+  });
+
+  $("#house-accordion").on('click', '.expand-button', function() {
+    $(this).children(".down-button").toggle();
+    $(this).children(".up-button").toggle();
+  });
+
 });
