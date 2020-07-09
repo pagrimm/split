@@ -1,6 +1,6 @@
 # Split
 **Team Week Project for Epicodus**  
-**By Peter Grimm, James Henager, Micheal Hansen, Taylor Phillips, 07.06.2020**
+**By Peter Grimm, James Henager, Micheal Hansen, Taylor Phillips, 07.09.2020**
 
 ## Description
 
