@@ -16,6 +16,10 @@ i.big {
   color: red;
 }
 
+.up-button {
+  display: none;
+}
+
 .roommate-name-icon {
   float: left;
   font-size: 1.5em;

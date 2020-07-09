@@ -132,7 +132,7 @@ $(document).ready(function() {
 
     //add new roommate to the expense interface
     $('select.roommate-contribution-name').append(`<option value='${roommateName}'>${roommateName}</option>`);
-    
+    $('select.payment-name').append(`<option value='${roommateName}'>${roommateName}</option>`);
     //add new roommate to the display debits/credits interface
     const cardHTML = createCard(roommateName);
     $('div#roommate-expense-cards').append(cardHTML);
@@ -211,4 +211,17 @@ $(document).ready(function() {
     $('.participation-div').hide();
     $('.custom-split-div').show();
   });
+
+  $("#roommate-expense-cards").on('click', '.expand-button', function() {
+    $(".expand-button").not(this).children(".up-button").hide();
+    $(".expand-button").not(this).children(".down-button").show();
+    $(this).children(".down-button").toggle();
+    $(this).children(".up-button").toggle();
+  });
+
+  $("#house-accordion").on('click', '.expand-button', function() {
+    $(this).children(".down-button").toggle();
+    $(this).children(".up-button").toggle();
+  });
+
 });
