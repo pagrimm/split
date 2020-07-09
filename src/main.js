@@ -174,7 +174,9 @@ $(document).ready(function() {
 
     $("input#roommate-name").val('');
     $('#roommate-modal').modal('hide');
-    $('#add-expense').attr("disabled", false);
+    if (household.roommates.length > 1) {
+      $('#add-expense').attr("disabled", false);
+    }
   });
 
   $('#close-roommate-form').click(function() {
